@@ -3,6 +3,7 @@
 # By: Matthew Hendrickson
 # Twitter: @mjhendrickson
 # GitHub: https://github.com/mjhendrickson/Tidy-Tuesday
+# Original source link: https://onlinembapage.com/average-tuition-and-educational-attainment-in-the-united-states/
 
 # ===== Install needed packages =====
 install.packages("tidyverse")
