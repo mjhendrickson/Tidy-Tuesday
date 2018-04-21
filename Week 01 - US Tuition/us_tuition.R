@@ -67,7 +67,7 @@ avg_tuition %>%
              y = tuition, color = year)) +
   geom_point() +
   #coord_flip() +
-  scale_y_continuous(labels = dollar) +
+  scale_y_continuous(labels = scales::dollar) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition",
@@ -84,7 +84,7 @@ avg_tuit %>%
              size = tuition_5yr_pct_chg)) +
   geom_point() +
   #coord_flip() +
-  scale_y_continuous(labels = dollar) +
+  scale_y_continuous(labels = scales::dollar) +
   scale_color_viridis() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5)) +
@@ -104,7 +104,7 @@ avg_tuit %>%
   geom_bar(stat = "Identity") +
   geom_text(aes(label = round(tuition),
                 angle = 90)) +
-  scale_y_continuous(labels = dollar) +
+  scale_y_continuous(labels = scales::dollar) +
   scale_color_viridis() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5)) +
