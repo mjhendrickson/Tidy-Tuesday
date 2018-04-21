@@ -49,9 +49,9 @@ avg_tuition %>%
   ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition)) +
   geom_boxplot() +
-  coord_flip() +
+  #coord_flip() +
   scale_y_continuous(labels = scales::dollar) +
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition Range",
        title = "College Tuition Ranges by State - Academic Years 2004-2005 - 2015-2016",
@@ -63,9 +63,9 @@ avg_tuition %>%
   ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition, color = year)) +
   geom_point() +
-  coord_flip() +
+  #coord_flip() +
   scale_y_continuous(labels = scales::dollar) +
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition",
        color = "Academic Year", 
@@ -75,7 +75,7 @@ avg_tuition %>%
 
 # Average Tuition & 5 Year Change - Point
 avg_tuit %>% 
-  ggplot(aes(x = fct_reorder(state_abb, tuition), 
+  ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition, 
              color = tuition_5yr_pct_chg, 
              size = tuition_5yr_pct_chg)) +
@@ -95,7 +95,7 @@ avg_tuit %>%
 
 # Average Tuition & 5 Year Change - Bar
 avg_tuit %>% 
-  ggplot(aes(x = fct_reorder(state_abb, tuition), 
+  ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition, 
              fill = tuition_5yr_pct_chg)) +
   geom_bar(stat = "Identity") +
