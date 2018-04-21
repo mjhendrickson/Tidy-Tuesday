@@ -42,7 +42,17 @@ avg_tuit <- average_tuition %>% # append new fields to df
   select(state, state_abb, year, tuition, tuition_5yr_chg, tuition_5yr_pct_chg) %>% # select needed fields
   filter(year == "2015-16")  # keep only last year
 
+# Create bins for % change
+avg_tuit$tuition_5yr_pct_bin <- cut(avg_tuit$tuition_5yr_pct_chg,
+                            breaks = c(-10, 0, 10, 20, 30, 40, 50, 60), 
+                            right = FALSE,
+                            include.highest = TRUE,
+                            include.lowest = TRUE)
 
+# Check bin counts
+avg_tuit %>%
+  group_by(tuition_5yr_pct_bin) %>%
+  summarize(n = n())
 
 # ===== Create plots =====
 # Average Tuition - Box
@@ -78,12 +88,32 @@ avg_tuition %>%
 avg_tuit %>% 
   ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition, 
-             color = tuition_5yr_pct_chg, 
-             size = tuition_5yr_pct_chg)) +
+             color = tuition_5yr_pct_bin,
+             shape = tuition_5yr_pct_bin)) +
   geom_point() +
   #coord_flip() +
   scale_y_continuous(labels = scales::dollar) +
-  scale_color_viridis() +
+  #scale_color_viridis() +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5)) +
+  labs(x = "State", 
+       y = "Average Tuition",
+       size = "5 yr change", 
+       color = "", 
+       title = "Average College Tuition by State - Academic Year 2015-2016",
+       caption = "\nDataSource: https://trends.collegeboard.org/ | Graphic: @mjhendrickson")
+
+# Plot just the outliers
+avg_tuit %>% 
+  subset(tuition_5yr_pct_chg < 0 | tuition_5yr_pct_chg > 30) %>%
+  ggplot(aes(x = fct_reorder(state, tuition), 
+             y = tuition, 
+             color = tuition_5yr_pct_bin,
+             shape = tuition_5yr_pct_bin)) +
+  geom_point() +
+  #coord_flip() +
+  scale_y_continuous(labels = scales::dollar) +
+  #scale_color_viridis() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5)) +
   labs(x = "State", 
