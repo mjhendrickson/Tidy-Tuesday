@@ -75,15 +75,16 @@ avg_tuition %>%
 
 # Average Tuition & 5 Year Change - Point
 avg_tuit %>% 
-  ggplot(aes(x = fct_reorder(state, tuition), 
+  ggplot(aes(x = fct_reorder(state_abb, tuition), 
              y = tuition, 
              color = tuition_5yr_pct_chg, 
              size = tuition_5yr_pct_chg)) +
   geom_point() +
-  coord_flip() +
+  #coord_flip() +
   scale_y_continuous(labels = scales::dollar) +
   scale_color_viridis() +
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5)) +
   labs(x = "State", 
        y = "Average Tuition",
        size = "5 yr change", 
@@ -98,10 +99,12 @@ avg_tuit %>%
              y = tuition, 
              fill = tuition_5yr_pct_chg)) +
   geom_bar(stat = "Identity") +
-  geom_text(aes(label = round(tuition), angle = 90)) +
+  geom_text(aes(label = round(tuition),
+                angle = 90)) +
   scale_y_continuous(labels = scales::dollar) +
   scale_color_viridis() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5)) +
   labs(x = "State", 
        y = "Average Tuition",
        fill = "5 yr % change", 
