@@ -53,7 +53,7 @@ avg_tuition %>%
              y = tuition)) +
   geom_boxplot() +
   #coord_flip() +
-  scale_y_continuous(labels = dollar) +
+  scale_y_continuous(labels = scales::dollar) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition Range",
