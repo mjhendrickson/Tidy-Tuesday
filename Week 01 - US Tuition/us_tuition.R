@@ -56,6 +56,7 @@ avg_tuit %>%
   group_by(tuition_5yr_pct_bin) %>%
   summarize(n = n())
 
+
 # ===== Create plots =====
 # Average Tuition - Box
 avg_tuition %>% 
@@ -142,7 +143,7 @@ avg_tuit %>%
   scale_y_continuous(labels = dollar, 
                      expand = c(0, 0)) +
   scale_fill_viridis() +
-  theme_minimal()+
+  theme_minimal() +
   labs(x = NULL, 
        y = "Average Tuition",
        fill = "5 yr % change", 
