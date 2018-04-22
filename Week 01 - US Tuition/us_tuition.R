@@ -63,7 +63,7 @@ avg_tuition %>%
              y = tuition)) +
   geom_boxplot() +
   #coord_flip() +
-  scale_y_continuous(labels = scales::dollar) +
+  scale_y_continuous(labels = dollar) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition Range",
@@ -77,7 +77,7 @@ avg_tuition %>%
              y = tuition, color = year)) +
   geom_point() +
   #coord_flip() +
-  scale_y_continuous(labels = scales::dollar) +
+  scale_y_continuous(labels = dollar) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = "State", 
        y = "Tuition",
@@ -94,7 +94,7 @@ avg_tuit %>%
              shape = tuition_5yr_pct_bin)) +
   geom_point() +
   #coord_flip() +
-  scale_y_continuous(labels = scales::dollar) +
+  scale_y_continuous(labels = dollar) +
   #scale_color_viridis() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5)) +
@@ -114,7 +114,7 @@ avg_tuit %>%
              shape = tuition_5yr_pct_bin)) +
   geom_point() +
   #coord_flip() +
-  scale_y_continuous(labels = scales::dollar) +
+  scale_y_continuous(labels = dollar) +
   #scale_color_viridis() +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5)) +
@@ -127,37 +127,7 @@ avg_tuit %>%
 
 
 # Average Tuition & 5 Year Change - Bar
-avg_tuit %>% 
-  ggplot(aes(x = fct_reorder(state, tuition), 
-             y = tuition, 
-             fill = tuition_5yr_pct_chg)) +
-  geom_bar(stat = "Identity") +
-  geom_text(aes(label = round(tuition),
-                angle = 90)) +
-  scale_y_continuous(labels = scales::dollar) +
-  scale_color_viridis() +
-  theme(axis.text.x = element_text(angle = 90, 
-                                   vjust = 0.5)) +
-  labs(x = "State", 
-       y = "Average Tuition",
-       fill = "5 yr % change", 
-       title = "Average College Tuition by State - Academic Year 2015-2016",
-       caption = "\nDataSource: https://trends.collegeboard.org/ | Graphic: @mjhendrickson")
-
-#Some feedback on the plot----
-#  1. You can apply scales::dollar to any value, even your labels.  If you load scales, you don't really need to namespace call it (scales::dollar)
-#  2.You were on the money with the coord_flip previously for your viusalization. This would make it easier to read!
-#        -If you coord_flip, you can embed the labels into the end of the bar using the `hjust` parameter, e.g. hjust = 1.1
-#        -You'd then want to color the labels white.
-#  3. Your viridis scale isn't doing anything, since it's fill, not color used for the bar.
-#  4. the theme() options were also doing nothing, so I removed them.
-#  5. the default ggplot2 theme is alright, but the background grey is distracting for 90% of plots you'll make.  theme_minimal() is included in 
-#  ggplot2 and is your friend.
-# 
-#  Below is what your plot woudl look like with the above changes.
-
-
-
+# Jake Kaupp's updated graph.
 avg_tuit %>% 
   ggplot(aes(x = fct_reorder(state, tuition), 
              y = tuition, 
@@ -165,11 +135,37 @@ avg_tuit %>%
   geom_bar(stat = "Identity") +
   geom_text(aes(label = dollar(round(tuition)),
                 angle = 0),
-            hjust = 1.1, color = "white") +
+            hjust = 1.1, 
+            color = "white",
+            size = 3) +
   coord_flip() +
-  scale_y_continuous(labels = dollar, expand = c(0, 0)) +
+  scale_y_continuous(labels = dollar, 
+                     expand = c(0, 0)) +
   scale_fill_viridis() +
   theme_minimal()+
+  labs(x = NULL, 
+       y = "Average Tuition",
+       fill = "5 yr % change", 
+       title = "Average College Tuition by State - Academic Year 2015-2016",
+       caption = "\nDataSource: https://trends.collegeboard.org/ | Graphic: @mjhendrickson")
+
+# Second take to appear closer to original, incorporating feedback
+avg_tuit %>% 
+  ggplot(aes(x = fct_reorder(state, tuition), 
+             y = tuition, 
+             fill = tuition_5yr_pct_chg)) +
+  geom_bar(stat = "Identity") +
+  geom_text(aes(label = dollar(round(tuition)),
+                angle = 90),
+            hjust = 1.1, 
+            color = "white",
+            size = 3) +
+  #coord_flip() +
+  scale_y_continuous(labels = dollar, 
+                     expand = c(0, 0)) +
+  scale_fill_viridis() +
+  theme(axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5)) +
   labs(x = NULL, 
        y = "Average Tuition",
        fill = "5 yr % change", 
